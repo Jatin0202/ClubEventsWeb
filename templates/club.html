@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            {{club_name}}
+        </title>
+    </head>
+    <body>
+        {% for post in posts %}
+            {% for lines in post %}
+                {{ lines }}<br>
+            {% endfor %}
+            <br><hr><br>
+        {% endfor %}
+    </body>
+</html>

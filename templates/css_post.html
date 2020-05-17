@@ -1,0 +1,58 @@
+{% extends 'css_base.html' %}
+{% load static %}
+
+{% block include %}
+    <link rel="stylesheet" type="text/css" href="{% static "posts/post_css.css" %}">
+{% endblock %}
+
+{% block title %}
+  {{club_name}}
+
+{% endblock %}
+
+{% block image %}
+<link rel="shortcut icon" href="{% static club_photo %}" type="image/x-icon">
+{% endblock %}
+
+{% block content %}
+<div style="margin-top:150px">
+    <div class="row m-40 p-10">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4 p-5 card">
+        <div class="container bg-light display-4" >{{club_name}}</div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 p-5 card">
+        <div class="container bg-light display-4" ><a href="{% url 'club_scrape' club_rel %}" >Update Now</a></div>
+        </div>
+        </div>
+        <div class="col-sm-2"></div>
+        </div>
+    </div>
+    <br>
+    <div>
+        {% for post in posts %}
+            <div class="row m-40 p-10">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 p-5 card">
+                <div class="container bg-light display-4" >
+                    <h3>Posted on: {{post.updated_on}}</h3><br>
+
+                        {% for line in post.content_as_list %}
+                            {% if "http" in line %}
+                            <a href="{{line}}">{{line}}</a>
+                            {% else%}
+                                {{ line }}
+                            {% endif %}
+                            <br>
+                        {% endfor %}
+                        <br>
+                </div>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+            <br><br>
+        {% endfor %}
+    </div>
+{% endblock %}

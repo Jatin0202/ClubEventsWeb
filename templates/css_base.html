@@ -1,0 +1,80 @@
+{% load static %}
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static "base/base_css.css" %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- Function used to shrink nav bar removing paddings and adding black background -->
+        <script src="{% static "base/scripts.js" %}"></script>
+        {% block include %}
+        {% endblock %}
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+            {% block image %}
+            {% endblock %}
+        <style>
+            body {
+                background-image: url('{% static "login/images/bg-01.jpg" %}');
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
+    </head>
+<body>
+    <nav class="nav" style=" position:fixed; top:0; z-index:1;">
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'home' %}">Club_Events</a>
+            </div>
+            <div id="mainListDiv" class="main_list">
+                <ul class="navlinks">
+                    {% if user.is_authenticated  %}
+                    <li><a href="{% url 'logout2' %}">Log Out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login'  %}">Log In</a></li>
+                        <li><a href="{% url 'signUP'  %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </div>
+    </nav>
+    <script>
+            $(window).scroll(function() {
+                if ($(document).scrollTop() > 50) {
+                    $('.nav').addClass('affix');
+                    console.log("OK");
+                } else {
+                    $('.nav').removeClass('affix');
+                }
+            });
+    </script>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+
+<!-- {% if user.is_authenticated  %}
+
+        <h5><li><a class="nav-item nav-link text-white" href="javascript:{document.getElementById('logout').submit()}">Log Out</a></li></h5>
+        <form id="logout" method="POST" action="{% url 'logout2' %}">
+            {% csrf_token  %}
+            <input type="hidden" >
+        </form>
+    {% else %}
+        <li><a href={% url 'login'  %} class="text-white">Log IN</a></li></h5>
+        <h5><li><a href="{% url 'signUP'  %}" class="text-white">Sign UP</a></li></h5>
+    {% endif %} -->
+
+    <!-- z-idnex for navbar-->
